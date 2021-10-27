@@ -7,10 +7,13 @@ extern crate serde_derive;
 // interface.rs
 mod interface;
 
+// world.rs
+
+
 fn main() {
     env_logger::init();
 
-    let mut config = Config:: new();
+    let _config = Config:: new();
 
-    println!("done");
+    println!("compiles!");
 }
