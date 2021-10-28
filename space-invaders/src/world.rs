@@ -1,5 +1,5 @@
 use oorandom;
-
+use spritesheet::SpriteSheet;
 
 const RAND_SEED: i32 = 5;
 
@@ -15,6 +15,7 @@ pub enum GameState {
 // general utils
 pub struct Timers {}
 pub struct VFX {}
+
 
 
 // VFX
@@ -36,7 +37,7 @@ pub struct AlienSwarm {}
 pub struct World {
     state: GameState,
     random: oorandom::Rand32::new(RAND_SEED),
-    sprite_sheet: String,
+    sprite_sheet: SpriteSheet,
     menu: String,
     high_score: u32,
     player: Player,
