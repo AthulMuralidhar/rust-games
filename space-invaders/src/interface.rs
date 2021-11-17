@@ -1,21 +1,36 @@
+// https://github.com/bgaster/rusty-space-invaders/blob/master/src/interface_desktop.in
 
-
-use gilrs::{GamepadId, Gilrs};
-use pixels::Pixels;
 use winit::window::Window;
 use winit_input_helper::WinitInputHelper;
+use pixels::Pixels; 
+use winit::event::Event;
+use winit::event_loop::EventLoop;
 
-pub struct Interface {
-    pub window: Window,
-    pub hidpi_factor: f64,
-    pub input: WinitInputHelper,
-    pub gilrs: Gilrs,
-    pub gamepad: GamepadId,
-    pub pixels: Pixels
+pub struct Inteface {
+    window: Window,
+    input: WinitInputHelper, 
+    pixels: Pixels
 }
 
-impl Interface {
-    pub fn requet_redraw(&self) {
+impl Inteface {
+    pub fn request_redraw(&self){
         self.window.request_redraw();
     }
-}
+
+    pub fn handle_input(&mut self, event: Event){
+        let controls = {
+            let mut left = self.input.key_held(VirtualKeyCode::Left);
+            let mut right = self.input.key_held(VirtualKeyCode::Right);
+            let mut fire = self.input.key_held(VirtualKeyCode::Space);
+        }
+
+        let direction = {
+
+        }
+    }
+
+
+
+    pub fn create_interface(){
+        let event_loop = EventLoop::new();
+    }
