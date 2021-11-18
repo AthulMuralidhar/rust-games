@@ -7,8 +7,11 @@ use winit::event::{Event, VirtualKeyCode};
 use winit::event_loop::EventLoop;
 use winit::dpi::LogicalSize;
 
-const WIDTH :f64 = 480.0;
-const HEIGHT :f64 = 460.0;
+const WIDTH :u32 = 480;
+const HEIGHT :u32 = 460;
+
+
+
 
 pub struct Interface {
     window: Window,
@@ -47,21 +50,19 @@ pub fn create_interface() -> (EventLoop<()>, Interface) {
         
         let hidpi_factor = window.scale_factor();
         let surface = Surface::create(&window);
+        let surface_texture = SurfaceTexture::new(WIDTH, HEIGHT, surface);
 
-        // let pixels = {
+        let pixels = {
+            let surface = Surface::create(&window);
+            let surface_texture = SurfaceTexture::new(WIDTH, HEIGHT, surface);
+            Pixels::new(WIDTH, HEIGHT, surface_texture).unwrap()
+        };
 
-        // }
-
-        (event_loop, Interface {
+        return (event_loop, Interface {
             window,
             hidpi_factor,
             input: WinitInputHelper::new(),
-            pixels: Pixels::new(
-                width: WIDTH, 
-                height: HEIGHT, 
-                surface: Surface::create(&window)
-                surface_texture: SurfaceTexture::new(WIDTH as u32, HEIGHT as u32, surface)
-            ).unwrap()
+            pixels
         });
     
     }
