@@ -11,8 +11,6 @@ const WIDTH :u32 = 480;
 const HEIGHT :u32 = 460;
 
 
-
-
 pub struct Interface {
     window: Window,
     input: WinitInputHelper, 
@@ -32,10 +30,22 @@ impl Interface {
             let mut fire = self.input.key_held(VirtualKeyCode::Space);
         };
 
-        let direction = {
+        let direction = {};
 
-        };
     }
+
+    pub fn should_render<'a>(&self, event: &Event<'a, ()>) -> bool {
+        if let Event::RedrawRequested(_) = event {
+            true
+        } else {
+            false
+        }
+    }
+
+    pub fn draw_call(&mut self) {
+        self.pixels.render().unwrap()
+    }
+
 
 }
 
