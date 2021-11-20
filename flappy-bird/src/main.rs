@@ -1,25 +1,18 @@
 // https://github.com/TanTanDev/flappy_bevy/blob/master/src/main.rs
 
 #![allow(unused_imports)]
+#![allow(unused_variables)]
+#![allow(unused_mut)]
+
+mod screen;
 
 use bevy::prelude::*;
-use bevy::render::camera::Camera;
-use bevy::prelude::Camera2dComponents;
+use crate::screen::ScreenPlugin;
+
 
 fn main() {
     App::build()
         .add_plugins(DefaultPlugins)
-        .add_startup_system()
+        .add_plugins(ScreenPlugin)
         .run();
-}
-
-fn setup(
-    mut commands: Commands,
-    mut asset_server: Res<AssetServer>,
-    mut textures: ResMut<Assets<Texture>>,
-    mut texture_atlases: ResMut<Assets<TextureAtlas>>
-) {
-    commands.spawn(Camera2dComponents::default());
-
-
 }
