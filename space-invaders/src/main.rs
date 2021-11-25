@@ -17,6 +17,12 @@ use world::initial_world_state;
 use crate::render_helpers::{render_gameover, render_main_menu, render_system};
 use crate::world::GameState;
 
+/*  DEV NOTES
+- the bevy branch containsspace invader immp;imentation using the bwvy engine
+- the bevy engine is higly unstable and hence the examples used as reference almost
+never work
+- please prefer and consider sticking with the main implimenation WITHOUT the bevy engine
+*/
 
 fn main() {
     env_logger::init();
