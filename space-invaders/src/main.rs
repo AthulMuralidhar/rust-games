@@ -4,6 +4,7 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 #![allow(unused_mut)]
+#![allow(non_snake_case)]
 // #![feature(destructuring_assignment)]
 
 mod interface;
@@ -11,6 +12,9 @@ mod config;
 mod world;
 mod render_helpers;
 mod sprite_helpers;
+mod controls;
+mod constants;
+mod frame;
 
 use interface::create_interface;
 use config::Config;
@@ -37,6 +41,7 @@ fn main() {
 
     let mut world = initial_world_state(&config);
 
+    // main game loop
     event_loop.run(move |event, _, control_flow| {
         let current_state = world.get_current_state();
 
@@ -47,7 +52,21 @@ fn main() {
                 GameState::End => render_gameover(&world, &mut interface),
                 _ => render_main_menu(&world, &mut interface)
             }
+            
         }
-    })
+
+        let (should_exit, controls) = interface.handle_input(event);
+
+        if current_state == GameState::Start {
+            if let Some(control) = controls {
+                if control.fire {
+                    // world.set_curent_state(GameState::Playing);
+                    // world.reset_ufo_timer();
+                }
+            }
+
+        }
+        interface.request_redraw();
+    });
 
 }

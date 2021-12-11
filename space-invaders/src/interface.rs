@@ -6,9 +6,10 @@ use pixels::{Pixels, SurfaceTexture, wgpu::Surface};
 use winit::event::{Event, VirtualKeyCode};
 use winit::event_loop::EventLoop;
 use winit::dpi::LogicalSize;
+use crate::controls::{Controls, Direction};
+use crate::constants::{WIDTH, HEIGHT};
+use crate::frame::Frame;
 
-const WIDTH :u32 = 480;
-const HEIGHT :u32 = 460;
 
 
 pub struct Interface {
@@ -23,15 +24,24 @@ impl Interface {
         self.window.request_redraw();
     }
 
-    pub fn handle_input(&mut self, event: Event<()>){
+    pub fn handle_input(&mut self, event: Event<()>) -> (bool, Option<Controls>){
         let controls = {
             let mut left = self.input.key_held(VirtualKeyCode::Left);
             let mut right = self.input.key_held(VirtualKeyCode::Right);
             let mut fire = self.input.key_held(VirtualKeyCode::Space);
+        
+
+        let direction = if left {
+            Direction::Left
+        } else if right {
+            Direction::Right
+        } else {
+            Direction::Still
         };
+        Controls {direction, fire}
+    };
 
-        let direction = {};
-
+        (false, Some(controls))
     }
 
     pub fn should_render<'a>(&self, event: &Event<'a, ()>) -> bool {
@@ -45,6 +55,20 @@ impl Interface {
     pub fn draw_call(&mut self) {
         self.pixels.render().unwrap()
     }
+
+    pub fn framebuffer(&mut self) -> Frame {
+        let p = self.pixels.get_frame();
+        Frame::new(p, Interface::get_width(), Interface::get_height())
+    }
+
+    pub fn get_width() -> u32 {
+        WIDTH
+    }
+
+    pub fn get_height() -> u32 {
+       HEIGHT 
+    }
+
 
 
 }

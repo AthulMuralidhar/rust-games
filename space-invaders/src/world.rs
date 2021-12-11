@@ -3,9 +3,9 @@
 
 
 use crate::Config;
-use crate::sprite_helpers::SpriteSheet;
+use crate::sprite_helpers::{SpriteSheet, Sprite, SheetJSON};
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub enum GameState {
     Playing,
     Paused,
@@ -13,16 +13,19 @@ pub enum GameState {
     End
 }
 
+
 pub struct World {
     current_state: GameState,
-    sprite_sheet: SpriteSheet
+    sprite_sheet: SpriteSheet,
+    splash: Sprite,
 }
 
 impl World {
-    pub fn new() -> Self {
+    pub fn new(sprite_sheet: SpriteSheet, splash: Sprite) -> Self {
         World {
             current_state: GameState::Start,
-            sprite_sheet: SpriteSheet::new("./assets/sprite-sheet.png")
+            sprite_sheet,
+            splash,
         }
     }
 
@@ -33,8 +36,23 @@ impl World {
     pub fn get_sprite_sheet(&self) -> &SpriteSheet {
         &self.sprite_sheet
     }
+
+    pub fn get_splash_screen_sprite(&self) -> Sprite {
+        self.splash.clone()
+    }
 }
 
 pub fn initial_world_state(config: &Config) -> World {
-    World::new()
+    let sprite_sheet = SpriteSheet::new("./assets/sprite-sheet.png");
+    let sheet_json = SheetJSON::new("./assets/sprite-sheet.json");
+
+    let s = sheet_json.frames.get("splash.png").unwrap();
+    let splash = Sprite::new(
+        s.frame.x as u32,
+        s.frame.y as u32,
+        s.frame.w as u32,
+        s.frame.h as u32,
+    );
+
+    World::new(sprite_sheet, splash)
 }
