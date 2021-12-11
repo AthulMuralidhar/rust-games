@@ -1,26 +1,27 @@
 // https://github.com/bgaster/rusty-space-invaders/blob/master/src/sprite_sheet.rs
 
-use image::ImageBuffer;
+use image::{ImageBuffer, DynamicImage};
 use std::path::Path;
 
+
+#[derive(Debug, Clone)]
 pub struct SpriteSheet {
-    texture: ImageBuffer<image::Rgb<u8>, std::vec::Vec<u8>>,
-    width: u32,
-    height: u32
+    pub texture: ImageBuffer<image::Rgba<u8>, std::vec::Vec<u8>>,
+    pub width: u32,
+    pub height: u32
 }
 
 impl SpriteSheet {
-    pub fn new<P>(path: P) -> SpriteSheet {
+    pub fn new<P>(image_file: P) -> SpriteSheet
         where P: AsRef<Path> {
-            let image = image::open(Path::new(&path)).unwrap();
-            let texture = image.to_rgb8();
-            let dimensions = texture.dimensions();
 
+            let img : DynamicImage = image::open(image_file).unwrap();
+            let tex = img.to_rgba8();
+            let dim = tex.dimensions();
             SpriteSheet {
-                texture,
-                width: dimensions.0,
-                height: dimensions.1
+                texture: tex,
+                width: dim.0,
+                height: dim.1,
             }
-        }
     }
 }

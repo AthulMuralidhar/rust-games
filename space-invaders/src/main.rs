@@ -1,9 +1,10 @@
 // original sauce: https://github.com/bgaster/rusty-space-invaders/tree/master/src
 
+#![allow(unused_imports)]
 #![allow(dead_code)]
 #![allow(unused_variables)]
 #![allow(unused_mut)]
-#![feature(destructuring_assignment)]
+// #![feature(destructuring_assignment)]
 
 mod interface;
 mod config;
