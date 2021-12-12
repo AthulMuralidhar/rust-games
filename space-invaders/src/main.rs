@@ -21,6 +21,7 @@ use config::Config;
 use world::initial_world_state;
 use crate::render_helpers::{render_gameover, render_main_menu, render_system};
 use crate::world::GameState;
+use log::{info};
 
 /*  DEV NOTES
 - the bevy branch containsspace invader immp;imentation using the bwvy engine
@@ -33,39 +34,52 @@ fn main() {
     env_logger::init();
 
     let (event_loop, mut interface) = create_interface();
-
-    // println!("event loop:{:?}", event_loop);
-    // println!("interface:{:?}", interface);
+    info!("Game interface created");
 
     let mut config = Config::new();
-
     let mut world = initial_world_state(&config);
+    info!("Game config loadded to the world");
 
     // main game loop
     event_loop.run(move |event, _, control_flow| {
-        let current_state = world.get_current_state();
+        info!("Enterring main game loop");
 
-        if interface.should_render(&event) {
+        let current_state = world.get_current_state();
+        info!("Current game state: {:?}", current_state);
+
+        if interface.render(&event) {
             match current_state {
                 GameState::Playing => render_system(&world, &mut interface),
                 GameState::Paused => render_system(&world, &mut interface),
                 GameState::End => render_gameover(&world, &mut interface),
                 _ => render_main_menu(&world, &mut interface)
             }
-            
         }
 
+            
         let (should_exit, controls) = interface.handle_input(event);
 
-        if current_state == GameState::Start {
-            if let Some(control) = controls {
-                if control.fire {
-                    // world.set_curent_state(GameState::Playing);
-                    // world.reset_ufo_timer();
+        match current_state {
+            GameState::Playing => {
+                // player_control_system(&mut world, controls);
+                // bullet_control_system(&mut world);
+
+                // alien_control_system(&mut world);
+
+                // ship_control_system(&mut world);
+                // bullet_collision_system(&mut world);
+                // world.update();
+            }
+            _ => { // GameState::Start
+                if let Some(control) = controls {
+                    if control.fire {
+                        world.set_current_state(GameState::Playing);
+                    }
                 }
             }
-
         }
+
+
         interface.request_redraw();
     });
 

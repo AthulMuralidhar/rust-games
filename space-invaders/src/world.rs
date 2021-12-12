@@ -5,7 +5,7 @@
 use crate::Config;
 use crate::sprite_helpers::{SpriteSheet, Sprite, SheetJSON};
 
-#[derive(Copy, Clone, PartialEq)]
+#[derive(Copy, Clone, PartialEq, Debug)]
 pub enum GameState {
     Playing,
     Paused,
@@ -40,6 +40,10 @@ impl World {
     pub fn get_splash_screen_sprite(&self) -> Sprite {
         self.splash.clone()
     }
+    pub fn set_current_state(&mut self, state: GameState) {
+        self.current_state = state
+    } 
+
 }
 
 pub fn initial_world_state(config: &Config) -> World {

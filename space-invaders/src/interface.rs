@@ -69,6 +69,12 @@ impl Interface {
        HEIGHT 
     }
 
+    pub fn render<'a>(&self, event: &Event<'a, ()>) -> bool {
+        if let Event::RedrawRequested(_) = event {
+            return true;
+        }
+        false
+    }
 
 
 }
