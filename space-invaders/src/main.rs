@@ -61,14 +61,14 @@ fn main() {
 
         match current_state {
             GameState::Playing => {
-                // player_control_system(&mut world, controls);
+                player_control_system(&mut world, controls);
                 // bullet_control_system(&mut world);
 
                 // alien_control_system(&mut world);
 
                 // ship_control_system(&mut world);
                 // bullet_collision_system(&mut world);
-                // world.update();
+                world.update_timer();
             }
             _ => { // GameState::Start
                 if let Some(control) = controls {
