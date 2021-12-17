@@ -43,7 +43,7 @@ impl World {
     pub fn set_current_state(&mut self, state: GameState) {
         self.current_state = state
     }
-    pub fn update_timer(){
+    pub fn update_timer(&self){
 
     } 
 

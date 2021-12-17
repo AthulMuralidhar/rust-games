@@ -21,7 +21,7 @@ use config::Config;
 use world::initial_world_state;
 use crate::render_helpers::{render_gameover, render_main_menu, render_system};
 use crate::world::GameState;
-use log::{info};
+use log::info;
 
 /*  DEV NOTES
 - the bevy branch containsspace invader immp;imentation using the bwvy engine
@@ -31,7 +31,6 @@ never work
 */
 
 fn main() {
-    env_logger::init();
 
     let (event_loop, mut interface) = create_interface();
     info!("Game interface created");
@@ -61,7 +60,7 @@ fn main() {
 
         match current_state {
             GameState::Playing => {
-                player_control_system(&mut world, controls);
+                // player_control_system(&mut world, controls);
                 // bullet_control_system(&mut world);
 
                 // alien_control_system(&mut world);
