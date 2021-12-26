@@ -18,19 +18,19 @@ pub fn spawn_snake(mut commands: Commands, materials: Res<Materials>) {
 
 pub fn snake_movement(
     keybord_input: Res<Input<KeyCode>>,
-    mut head_position: Query<&mut Transform, With<SnakeHead>>) {
-    for mut transform in head_position.iter_mut() {
+    mut head_position: Query<&mut Position, With<SnakeHead>>) {
+    for mut pos in head_position.iter_mut() {
         if keybord_input.pressed(KeyCode::Left) {
-            transform.translation.x -= 2.0;
+            pos.x -= 1;
         }
         if keybord_input.pressed(KeyCode::Right) {
-            transform.translation.x += 2.0;
+            pos.x += 1;
         }
         if keybord_input.pressed(KeyCode::Down) {
-            transform.translation.y -= 2.0;
+            pos.y -= 1;
         }
         if keybord_input.pressed(KeyCode::Up) {
-            transform.translation.y += 2.0;
+            pos.y += 1;
         }
     }
 }
