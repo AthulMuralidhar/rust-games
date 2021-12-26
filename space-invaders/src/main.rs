@@ -15,6 +15,7 @@ mod sprite_helpers;
 mod controls;
 mod constants;
 mod frame;
+mod player;
 
 use interface::create_interface;
 use config::Config;
@@ -22,6 +23,7 @@ use world::initial_world_state;
 use crate::render_helpers::{render_gameover, render_main_menu, render_system};
 use crate::world::GameState;
 use log::info;
+use player::player_control_system;
 
 /*  DEV NOTES
 - the bevy branch containsspace invader immp;imentation using the bwvy engine
@@ -60,7 +62,7 @@ fn main() {
 
         match current_state {
             GameState::Playing => {
-                // player_control_system(&mut world, controls);
+                player_control_system(&mut world, controls);
                 // bullet_control_system(&mut world);
 
                 // alien_control_system(&mut world);
