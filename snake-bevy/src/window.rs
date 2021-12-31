@@ -49,3 +49,22 @@ pub fn position_translation(windows: Res<Windows>, mut q: Query<(&Position, &mut
         )
     }
 }
+
+#[derive(PartialEq, Copy, Clone)]
+pub enum Direction {
+    Left,
+    Right,
+    Up,
+    Down
+}
+
+impl Direction {
+    pub fn opposite(self)-> Self {
+        match self {
+            Self::Right => Self::Left,
+            Self::Left => Self::Right,
+            Self::Down => Self::Up,
+            Self::Up=> Self::Down,
+        }
+    }
+}

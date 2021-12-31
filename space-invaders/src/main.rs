@@ -24,6 +24,7 @@ use crate::render_helpers::{render_gameover, render_main_menu, render_system};
 use crate::world::GameState;
 use log::info;
 use player::player_control_system;
+use simple_logger::SimpleLogger;
 
 /*  DEV NOTES
 - the bevy branch containsspace invader immp;imentation using the bwvy engine
@@ -33,6 +34,8 @@ never work
 */
 
 fn main() {
+    SimpleLogger::new().with_utc_timestamps().init().unwrap();
+
 
     let (event_loop, mut interface) = create_interface();
     info!("Game interface created");
