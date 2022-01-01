@@ -55,7 +55,8 @@ pub enum Direction {
     Left,
     Right,
     Up,
-    Down
+    Down,
+    Home,
 }
 
 impl Direction {
@@ -65,6 +66,7 @@ impl Direction {
             Self::Left => Self::Right,
             Self::Down => Self::Up,
             Self::Up=> Self::Down,
+            Self::Home => Self::Home,
         }
     }
 }
