@@ -70,3 +70,5 @@ impl Direction {
         }
     }
 }
+
+pub struct GameOverEvent;
